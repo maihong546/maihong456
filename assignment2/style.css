@@ -118,3 +118,7 @@ body {
 #duration {
   font-size: 14px;
 }
+
+#timeline {
+  accent-color: rgb(164, 86, 91);
+}
