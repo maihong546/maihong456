@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Limelight&family=Stalemate&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  height: 150vh;
+
+  background-image: url("./background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.mountain {
+  position: absolute;
+  top: -1px;
+  right: 50px;
+  z-index: 1;
+  width: 48%;
+}
+
+.sun {
+  position: absolute;
+  top: 48px;
+  right: 610px;
+  z-index: 2;
+  width: 80px;
+}
+
+.leaf {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 3;
+  width: 450px;
+}
+
+.playbutton,
+.pausebutton {
+  position: absolute;
+  top: 500px;
+  right: 400px;
+  z-index: 999;
+  width: 30px;
+  cursor: pointer;
+}
+
+.h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  margin-left: 500px;
+  font-size: 40px;
+  font-weight: lighter;
+  color: #2d1f1a;
+  font-family: "Stalemate", cursive;
+}
+
+.p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  margin-left: 500px;
+  font-size: 30px;
+  color: #2d1f1a;
+  font-family: "Stalemate", cursive;
+}
+
+.timeline-container {
+  position: absolute;
+  top: 550px;
+  right: 250px;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 350px;
+  color: #2d1f1a;
+  font-family: "Iosevka Charon Mono", monospace;
+}
+
+#timeline {
+  flex: 1;
+  cursor: pointer;
+}
+
+#current-time,
+#duration {
+  font-size: 14px;
+}

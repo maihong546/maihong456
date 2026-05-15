@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SeasideDream</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <img class="mountain" src="mountain.png" alt="mountain" />
+    <img class="sun" src="sun.png" alt="sun" />
+    <img class="leaf" src="leaf.png" alt="leaf" />
+
+    <img
+      id="playBtn"
+      class="playbutton"
+      src="playbutton.png"
+      alt="playbutton"
+    />
+
+    <img
+      id="pauseBtn"
+      class="pausebutton"
+      src="pausebutton.png"
+      alt="pausebutton"
+    />
+
+    <h1 class="h1">SeasideDream</h1>
+
+    <div class="timeline-container">
+      <span id="current-time">0:00</span>
+
+      <input type="range" id="timeline" min="0" value="0" step="1" />
+
+      <span id="duration">0:00</span>
+    </div>
+
+    <img class="timelineshadow" src="timelineshadow.png" alt="timelineshadow" />
+
+    <p class="p">Maybe life isnt asking us to rush ...</p>
+
+    <audio id="audio">
+      <source src="erokia.mp3" type="audio/mpeg" />
+    </audio>
+  </body>
+</html>

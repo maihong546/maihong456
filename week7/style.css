@@ -1,0 +1,28 @@
+:root {
+  --primary-color: rgb(171, 171, 207);
+  --secodary-color: red;
+}
+
+audio {
+  display: block;
+  margin-bottom: 20px;
+}
+
+button {
+  font-size: 1.3rem;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  /*background-color: antiquewhite; */
+  background-color: var(--primary-color);
+  margin-right: 8px;
+}
+
+button:hover {
+  scale: 0.9;
+}
+
+video {
+  width: 600px;
+  height: 400px;
+}
