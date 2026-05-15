@@ -74,6 +74,26 @@ body {
   font-family: "Stalemate", cursive; /*font-style*/
 }
 
+.quoteup {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #2d1f1a;
+  font-family: "Stalemate", cursive;
+}
+
+.quotedown {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #2d1f1a;
+  font-family: "Stalemate", cursive;
+}
+
 .timeline-container {
   position: absolute;
   top: 550px;

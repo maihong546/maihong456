@@ -13,7 +13,7 @@ const durationText = document.getElementById("duration");
 /* hide pause button initially /
 pauseBtn.style.display = "none";
 
-/ format time /
+
 function formatTime(time) {
   const minutes = Math.floor(time / 60);
 
@@ -26,7 +26,7 @@ function formatTime(time) {
   return minutes + ":" + seconds;
 }
 
-/ play audio /
+
 playBtn.addEventListener("click", function () {
   audio.play();
 
@@ -35,7 +35,7 @@ playBtn.addEventListener("click", function () {
   pauseBtn.style.display = "block";
 });
 
-/ pause audio /
+
 pauseBtn.addEventListener("click", function () {
   audio.pause();
 
@@ -44,7 +44,7 @@ pauseBtn.addEventListener("click", function () {
   playBtn.style.display = "block";
 });
 
-/ get song duration /
+
 audio.addEventListener(
   "loadedmetadata",
   function () {
@@ -56,7 +56,7 @@ audio.addEventListener(
   }
 );
 
-/ update timeline /
+
 audio.addEventListener("timeupdate", function () {
   timeline.value = audio.currentTime;
 
@@ -65,7 +65,7 @@ audio.addEventListener("timeupdate", function () {
   );
 });
 
-/ drag timeline /
+
 timeline.addEventListener("input", function () {
   audio.currentTime = timeline.value;
 });
