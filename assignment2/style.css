@@ -3,10 +3,9 @@
 html {
   scroll-behavior: smooth;
 }
-
 body {
   margin: 0;
-  height: 150vh;
+  height: 150vh; /*length of the entire page*/
 
   background-image: url("./background.png");
   background-size: cover;
@@ -17,25 +16,25 @@ body {
 .mountain {
   position: absolute;
   top: -1px;
-  right: 50px;
-  z-index: 1;
+  right: 50;
+  z-index: 1; /*layer*/
   width: 48%;
 }
 
 .sun {
   position: absolute;
-  top: 48px;
-  right: 610px;
-  z-index: 2;
-  width: 80px;
+  top: 48px; /* distance from the top */
+  right: 610px; /* distance from the right — adjust this value */
+  z-index: 2; /* layers*/
+  width: 80px; /* sun's size */
 }
 
 .leaf {
   position: absolute;
-  top: 0px;
-  right: 0px;
-  z-index: 3;
-  width: 450px;
+  top: 0px; /* distance from the top */
+  right: 0px; /* distance from the right — adjust this value */
+  z-index: 3; /* layers*/
+  width: 450px; /* leaf's size */
 }
 
 .playbutton,
@@ -43,7 +42,7 @@ body {
   position: absolute;
   top: 500px;
   right: 400px;
-  z-index: 999;
+  z-index: 4;
   width: 30px;
   cursor: pointer;
 }
@@ -54,22 +53,25 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
+  margin-top: 0px;
   margin-left: 500px;
   font-size: 40px;
   font-weight: lighter;
   color: #2d1f1a;
-  font-family: "Stalemate", cursive;
+  font-family: "Stalemate", cursive; /*font-style*/
 }
 
 .p {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: -50vh;
   margin: 0;
+  margin-top: 0px;
   margin-left: 500px;
   font-size: 30px;
   color: #2d1f1a;
-  font-family: "Stalemate", cursive;
+  font-family: "Stalemate", cursive; /*font-style*/
 }
 
 .timeline-container {
