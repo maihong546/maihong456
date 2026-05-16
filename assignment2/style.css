@@ -3,115 +3,331 @@
 html {
   scroll-behavior: smooth;
 }
-body {
-  margin: 0;
-  height: 150vh; /*length of the entire page*/
 
-  background-image: url("./background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+body {
+  background-color: #f2e7d9;
+  overflow-x: hidden; /* blocks horizontal scroll */
 }
 
+/* ============ BACKGROUND ELEMENTS ============ */
 .mountain {
   position: absolute;
   top: -1px;
-  right: 50;
-  z-index: 1; /*layer*/
-  width: 48%;
+  right: 562px;
+  z-index: 1;
+  width: 58.5%;
+  pointer-events: none;
 }
 
+.smallmountain {
+  position: absolute;
+  bottom: -386px;
+  left: 725px;
+  z-index: 0;
+  width: 46.5%;
+  pointer-events: none;
+}
+
+.lake {
+  position: absolute;
+  bottom: -716px;
+  left: 610px;
+  z-index: 0;
+  width: 58%;
+  pointer-events: none;
+  animation: lakeWave 4s ease-in-out infinite; /* always moving like wind on water */
+  transform-origin: center center;
+}
+
+.ponds {
+  position: absolute;
+  bottom: -680px;
+  left: 750px;
+  z-index: 0;
+  width: 30%;
+  pointer-events: none;
+}
+
+/* ============ CLOUDS ============ */
+.cloudup {
+  position: absolute;
+  top: 240px;
+  left: 549px;
+  z-index: 0;
+  width: 21%;
+  pointer-events: none;
+}
+
+.cloudmiddle {
+  position: absolute;
+  top: 550px;
+  right: -30px;
+  z-index: 0;
+  width: 22%;
+  pointer-events: none;
+}
+
+.cloudbottom {
+  position: absolute;
+  top: 630px;
+  left: 450px;
+  z-index: 0;
+  width: 22%;
+  pointer-events: none;
+}
+
+/* clouds ease back smoothly when music stops — without this they'd snap back instantly */
+.cloudup,
+.cloudmiddle,
+.cloudbottom {
+  transition: transform 1.5s ease;
+}
+
+/* ============ BIRDS ============ */
+.threeredbirds {
+  position: absolute;
+  top: 230px;
+  left: 725px;
+  width: 5%;
+  pointer-events: none;
+}
+
+.twotinybirds {
+  position: absolute;
+  top: 320px;
+  right: 120px;
+  width: 1.7%;
+  pointer-events: none;
+}
+
+.upbluebirds {
+  position: absolute;
+  top: 400px;
+  left: 610px;
+  width: 3.7%;
+  pointer-events: none;
+}
+
+.tworedbirds {
+  position: absolute;
+  top: 630px;
+  left: 750px;
+  width: 4%;
+  pointer-events: none;
+}
+
+.threebluebirds {
+  position: absolute;
+  top: 960px;
+  right: 166px;
+  width: 4%;
+  pointer-events: none;
+}
+
+.downbluebirds {
+  position: absolute;
+  top: 900px;
+  right: 140px;
+  width: 3%;
+  pointer-events: none;
+  will-change:
+    transform, opacity; /* make the movement smoother when the bird is flying out */
+}
+
+/* ============ SUN ============ */
 .sun {
   position: absolute;
-  top: 48px; /* distance from the top */
-  right: 610px; /* distance from the right — adjust this value */
-  z-index: 2; /* layers*/
-  width: 80px; /* sun's size */
+  top: 48px;
+  right: 500px;
+  z-index: 3;
+  width: 8%;
+  pointer-events: all;
+  cursor: pointer;
+  transition: filter 0.6s ease; /* brightness fades in and out smoothly on click */
+}
+
+.sunlight {
+  position: absolute;
+  top: 1px;
+  right: 453px;
+  z-index: 2;
+  width: 15%;
+  pointer-events: none;
+
+  opacity: 0; /* hidden by default, appears on click */
+  transform: scale(0.3) rotate(0deg); /* starts small, expands outward on click */
+  transform-origin: center center;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease,
+    filter 0.6s ease;
+}
+
+/* sun brightens and sunlight expands + rotates 45deg on click, auto-returns after 1s */
+.sun.active {
+  filter: brightness(1.8);
+}
+
+.sunlight.active {
+  opacity: 1;
+  transform: scale(1) rotate(45deg);
+  filter: brightness(1.8);
+}
+
+/* ============ LEAVES ============ */
+.tinyleaf {
+  position: absolute;
+  top: 220px;
+  right: 400px;
+  z-index: -10; /* behind all other images */
+  width: 5.3%;
+  pointer-events: none;
+  transform-origin: top center;
+  /* transition removed — using keyframes for zig zag fall instead */
 }
 
 .leaf {
   position: absolute;
-  top: 0px; /* distance from the top */
-  right: 0px; /* distance from the right — adjust this value */
-  z-index: 3; /* layers*/
-  width: 450px; /* leaf's size */
+  top: -1px;
+  right: -3px;
+  z-index: 3;
+  width: 500px;
+  pointer-events: none;
+  will-change: transform, opacity; /* make it smoother, no lag */
+  mask-image:
+    linear-gradient(to bottom, black 80%, transparent 100%),
+    /* fades out the bottom edge */
+    radial-gradient(circle at top right, black 80%, transparent 80%); /* fades out the outer edge */
+  -webkit-mask-image:
+    linear-gradient(to bottom, black 80%, transparent 100%),
+    radial-gradient(circle at top right, black 77%, transparent 80%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+
+  transform-origin: top right; /* rotates from the top-right corner so it sways like a real branch */
+  transition: transform 1.5s ease; /* smoothly returns to original position when music stops */
 }
 
-.playbutton,
-.pausebutton {
+/* ============ FISHERMAN ============ */
+.human {
   position: absolute;
-  top: 500px;
-  right: 400px;
-  z-index: 4;
-  width: 30px;
-  cursor: pointer;
+  bottom: -516px;
+  left: 660px;
+  z-index: 10;
+  width: 12%;
+  pointer-events: none;
 }
 
+.rod {
+  position: absolute;
+  bottom: -320px;
+  left: 717px;
+  z-index: 10;
+  width: 12%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.line {
+  position: absolute;
+  bottom: -680px;
+  left: 875px;
+  z-index: 10;
+  width: 1%;
+  pointer-events: none;
+}
+
+/* ============ DECORATIVE LINES ============ */
+.linetop {
+  position: absolute;
+  bottom: -520px;
+  left: 910px;
+  width: 13%;
+  pointer-events: none;
+}
+
+.linemiddle {
+  position: absolute;
+  bottom: -470px;
+  left: 1050px;
+  width: 11%;
+  pointer-events: none;
+}
+
+.linebottom {
+  position: absolute;
+  bottom: -570px;
+  left: 1150px;
+  width: 15%;
+  pointer-events: none;
+}
+
+/* ============ TEXT ============ */
 .h1 {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
-  margin-top: 0px;
-  margin-left: 500px;
-  font-size: 40px;
+  margin-top: 56px;
+  margin-right: -580px;
+  font-size: 80px;
   font-weight: lighter;
   color: #2d1f1a;
-  font-family: "Stalemate", cursive; /*font-style*/
-}
-
-.p {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: -50vh;
-  margin: 0;
-  margin-top: 0px;
-  margin-left: 500px;
-  font-size: 30px;
-  color: #2d1f1a;
-  font-family: "Stalemate", cursive; /*font-style*/
-}
-
-.quoteup {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  color: #2d1f1a;
   font-family: "Stalemate", cursive;
+  pointer-events: none;
+  letter-spacing: 3px;
 }
 
-.quotedown {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
+/* I kept p1, p2, and p3 hidden by default so they only fade in when we hover over them. */
+.p1,
+.p2 {
+  margin-top: -50px;
+  margin-left: 610px;
+  font:
+    lighter 40px "Stalemate",
+    cursive;
   color: #2d1f1a;
-  font-family: "Stalemate", cursive;
+  letter-spacing: 2px;
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 
+.p3 {
+  margin-top: -50px;
+  margin-left: 610px;
+  font:
+    lighter 40px "Stalemate",
+    cursive;
+  color: #a93649;
+  letter-spacing: 2px;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* ============ MUSIC PLAYER ============ */
 .timeline-container {
   position: absolute;
-  top: 550px;
-  right: 250px;
-  z-index: 5;
-
+  top: 470px;
+  right: 140px;
+  z-index: 10;
   display: flex;
   align-items: center;
   gap: 10px;
-
-  width: 350px;
-  color: #2d1f1a;
-  font-family: "Iosevka Charon Mono", monospace;
+  width: 490px;
+  color: #a38b71;
+  font-family: "Yinmar", Yinmar;
 }
 
 #timeline {
   flex: 1;
   cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+  background: #f0ebe0;
 }
 
 #current-time,
@@ -119,6 +335,259 @@ body {
   font-size: 14px;
 }
 
-#timeline {
-  accent-color: rgb(164, 86, 91);
+#timeline::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 8px;
+  height: 13px;
+  border-radius: 50%;
+  background: rgb(164, 86, 91);
+  cursor: pointer;
+}
+
+#timeline::-moz-range-thumb {
+  width: 8px;
+  height: 13px;
+  border-radius: 50%;
+  background: rgb(164, 86, 91);
+  border: none;
+  cursor: pointer;
+}
+
+.playbutton,
+.pausebutton {
+  position: absolute;
+  top: 500px;
+  right: 363px;
+  z-index: 4;
+  width: 25px;
+  cursor: pointer;
+}
+
+/* ============ KEYFRAME ANIMATIONS ============ */
+
+/* leaf sways gently when music plays */
+@keyframes leafSway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(1.5deg);
+  }
+}
+
+.leaf.sway {
+  animation: leafSway 4s ease-in-out infinite;
+  transform-origin: top right;
+}
+
+/* tiny leaf sways then falls into the lake when music plays */
+.tinyleaf.sway:not(.fall) {
+  animation: leafSway 3.5s ease-in-out infinite; /* slightly different speed so they don't move in sync */
+  transform-origin: top center;
+}
+
+@keyframes leafFall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  } /* starting position, I have also putting on the size as the leaf shrinks as it falls to create a sense of depth */
+  20% {
+    transform: translate3d(20px, 150px, 0) rotate(15deg) scale(0.85);
+    opacity: 1;
+  } /* drifts right */
+  40% {
+    transform: translate3d(-15px, 320px, 0) rotate(-10deg) scale(0.7);
+    opacity: 1;
+  } /* swings left */
+  60% {
+    transform: translate3d(25px, 500px, 0) rotate(20deg) scale(0.55);
+    opacity: 1;
+  } /* drifts right again */
+  80% {
+    transform: translate3d(-10px, 680px, 0) rotate(-8deg) scale(0.4);
+    opacity: 0.5;
+  } /* almost at the lake, starts fading */
+  100% {
+    transform: translate3d(5px, 850px, 0) rotate(10deg) scale(0.2);
+    opacity: 0;
+  } /* disapear behind the mountain */
+}
+
+.tinyleaf.fall {
+  animation: leafFall 6s ease-in forwards; /* forwards keeps it at the final frame */
+}
+
+/* clouds drift up and down when music plays, each at a different pace */
+@keyframes cloudFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.cloudup.float {
+  animation: cloudFloat 6s ease-in-out infinite;
+}
+.cloudmiddle.float {
+  animation: cloudFloat 8s ease-in-out infinite;
+}
+.cloudbottom.float {
+  animation: cloudFloat 7s ease-in-out infinite;
+}
+
+/* when clicked, the bird flaps its wings and flies out of the frame */
+@keyframes birdTakeoff {
+  /* the bird flaps its wings in place first, getting ready to take off */
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  5% {
+    transform: translate3d(0, 0, 0) rotate(-20deg) scale(1);
+    opacity: 1;
+  } /* wing up */
+  10% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  } /* wing down */
+  15% {
+    transform: translate3d(0, 0, 0) rotate(-20deg) scale(1);
+    opacity: 1;
+  } /* wing up */
+  20% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  } /* wing down */
+  25% {
+    transform: translate3d(0, 0, 0) rotate(-20deg) scale(1);
+    opacity: 1;
+  } /* wing up */
+  30% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  } /* wing down */
+  35% {
+    transform: translate3d(0, 0, 0) rotate(-20deg) scale(1);
+    opacity: 1;
+  } /* wing up */
+  40% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  } /* wing down — done, taking off! */
+
+  /* flying diagonally while still flapping wings */
+  /* I used translate3d instead of translate here — adding z:0 forces the browser to use GPU instead of CPU, which makes the animation much smoother */
+  48% {
+    transform: translate3d(60px, -45px, 0) rotate(-20deg) scale(0.9);
+    opacity: 1;
+  } /* wing up */
+  55% {
+    transform: translate3d(100px, -75px, 0) rotate(0deg) scale(0.85);
+    opacity: 1;
+  } /* wing down */
+  62% {
+    transform: translate3d(160px, -120px, 0) rotate(-20deg) scale(0.7);
+    opacity: 1;
+  } /* wing up */
+  70% {
+    transform: translate3d(220px, -170px, 0) rotate(0deg) scale(0.6);
+    opacity: 1;
+  } /* wing down */
+  78% {
+    transform: translate3d(290px, -220px, 0) rotate(-20deg) scale(0.45);
+    opacity: 0.8;
+  } /* wing up */
+  85% {
+    transform: translate3d(340px, -260px, 0) rotate(0deg) scale(0.35);
+    opacity: 0.6;
+  } /* wing down */
+  92% {
+    transform: translate3d(390px, -300px, 0) rotate(-20deg) scale(0.25);
+    opacity: 0.3;
+  } /* wing up, almost gone */
+  100% {
+    transform: translate3d(430px, -330px, 0) rotate(0deg) scale(0.15);
+    opacity: 0;
+  } /* flew off into the sky! */
+}
+.downbluebirds.fly {
+  animation: birdTakeoff 4s linear forwards; /* I added linear to keeps the flapping rhythm consistent throughout meanwhile, forwards to keeps it gone after flying away */
+}
+
+/* rod bends slightly downward simulating a fish biting */
+@keyframes rodBend {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(3deg);
+  }
+  60% {
+    transform: rotate(1.5deg);
+  }
+}
+
+.rod.bend {
+  animation: rodBend 1s ease-in-out;
+  transform-origin: top left; /* bends from the handle end */
+}
+
+/* fishing line tugged downward in sync with the rod */
+@keyframes lineTug {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(8px);
+  }
+  60% {
+    transform: translateY(4px);
+  }
+}
+
+.line.tug {
+  animation: lineTug 1s ease-in-out; /* matches rod duration so they move together */
+}
+
+/* pond ripples gently when the fish bites */
+@keyframes pondRipple {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  33% {
+    transform: scaleX(1.015);
+  }
+  66% {
+    transform: scaleX(0.99);
+  }
+}
+
+.ponds.ripple {
+  animation: pondRipple 1.2s ease-in-out;
+  transform-origin: center center;
+}
+
+/* lake always moves like wind on water */
+@keyframes lakeWave {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(4px);
+  }
+  50% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
 }

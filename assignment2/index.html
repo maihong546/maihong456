@@ -7,41 +7,94 @@
 
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
+    <!-- I added defer so the JS only runs after the HTML is fully loaded -->
   </head>
 
   <body>
+    <!-- ============ BACKGROUND ============ -->
     <img class="mountain" src="mountain.png" alt="mountain" />
+
+    <!-- ============ SUN ============ -->
+    <!-- click to brighten -->
     <img class="sun" src="sun.png" alt="sun" />
+    <img class="sunlight" src="sunlight.png" alt="sunlight" />
+    <!-- I keep this hidden by default, it only appears when the sun is clicked -->
+
+    <!-- ============ LEAVES ============ -->
+    <!-- I made the big leaf sway when music plays, and the tiny leaf actually falls into the lake -->
     <img class="leaf" src="leaf.png" alt="leaf" />
+    <img class="tinyleaf" src="tinyleaf.png" alt="tinyleaf" />
 
-    <img
-      id="playBtn"
-      class="playbutton"
-      src="playbutton.png"
-      alt="playbutton"
-    />
+    <!-- ============ CLOUDS ============ -->
+    <!-- float up and down when music plays -->
+    <img class="cloudup" src="cloudup.png" alt="cloudup" />
+    <img class="cloudmiddle" src="cloudmiddle.png" alt="cloudmiddle" />
+    <img class="cloudbottom" src="cloudbottom.png" alt="cloudbottom" />
 
+    <!-- ============ MUSIC PLAYER ============ -->
     <img
       id="pauseBtn"
       class="pausebutton"
       src="pausebutton.png"
       alt="pausebutton"
     />
-
-    <h1 class="h1">SeasideDream</h1>
+    <!-- I show this one first since the music starts paused -->
+    <img
+      id="playBtn"
+      class="playbutton"
+      src="playbutton.png"
+      alt="playbutton"
+    />
+    <!-- I hide this one by default and swap it in via JS -->
 
     <div class="timeline-container">
       <span id="current-time">0:00</span>
-
-      <input type="range" id="timeline" min="0" value="0" step="1" />
-
+      <input
+        type="range"
+        id="timeline"
+        min="0"
+        max="100"
+        value="0"
+        step="any"
+      />
       <span id="duration">0:00</span>
     </div>
-
-    <p class="p">Maybe life isnt asking us to rush ...</p>
 
     <audio id="audio">
       <source src="erokia.mp3" type="audio/mpeg" />
     </audio>
+
+    <!-- ============ BIRDS ============ -->
+    <img class="threeredbirds" src="threeredbirds.png" alt="threeredbirds" />
+    <img class="twotinybirds" src="twotinybirds.png" alt="twotinybirds" />
+    <img class="upbluebirds" src="upbluebird.png" alt="upbluebird" />
+    <img class="tworedbirds" src="tworedbirds.png" alt="tworedbirds" />
+    <img class="threebluebirds" src="threebluebirds.png" alt="threebluebirds" />
+    <img class="downbluebirds" src="downbluebird.png" alt="downbluebirds" />
+
+    <!-- ============ TITLE ============ -->
+    <h1 class="h1">Seaside Dreams</h1>
+
+    <!-- ============ QUOTES ============ -->
+    <!-- I made these invisible by default, they only show up when you hover over them -->
+    <p class="p1">"Maybe life isnt asking us to rush ...</p>
+    <p class="p2">..maybe it just wants us to sit quietly by the water ...</p>
+    <p class="p3">... and notice how beautiful everything already is."</p>
+
+    <!-- ============ FISHERMAN ============ -->
+    <!-- click to triggers a fish biting animation on the rod, line and pond -->
+    <img class="human" src="human.png" alt="human" />
+    <img class="rod" src="rod.png" alt="rod" />
+    <img class="line" src="line.png" alt="line" />
+
+    <!-- ============ LOWER SCENE ============ -->
+    <img class="smallmountain" src="smallmountain.png" alt="smallmountain" />
+    <img class="lake" src="lake.png" alt="lake" />
+    <!-- I added a constant wave motion here to make it feel like the water is moving with the wind -->
+    <img class="ponds" src="ponds.png" alt="ponds" />
+    <!-- I made this ripple gently when the fish bites -->
+    <img class="linetop" src="linetop.png" alt="linetop" />
+    <img class="linemiddle" src="linemiddle.png" alt="linemiddle" />
+    <img class="linebottom" src="linebottom.png" alt="linebottom" />
   </body>
 </html>
