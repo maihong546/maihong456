@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sky Descent</title>
+
+    <!-- Stalemate: a decorative cursive font chosen for its hand-lettered
+         quality, which reinforces the "art piece" context over a UI feel -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Stalemate&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Overlay: full-screen instruction that fades after 3s via JS.
+         backdrop-filter blur softens the scene behind it so the text
+         is readable without a hard opaque panel blocking the artwork -->
+    <div class="overlay" id="overlay">
+      <p>
+        Scroll slowly up and down to immerse yourself in the full experience.
+      </p>
+    </div>
+
+    <!-- Audio: loop attribute makes the track repeat seamlessly.
+         Playback is triggered by JS on first scroll, not on page load,
+         because browsers block autoplay before a user gesture -->
+    <audio id="bg-music" loop>
+      <source src="music.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- Intro: the only text in the artwork. Dissolves on scroll to
+         restore the "window, not dashboard" feeling -->
+    <div class="intro">
+      <h1>Sky Descent</h1>
+    </div>
+
+    <!-- Scene: a fixed stack of PNG layers ordered back to front.
+         Each layer fades and moves independently via JS scroll events.
+         Layer order: sky-dusk → sky-night → stars → snow → aurora × 2 → mountains -->
+    <div class="scene">
+      <div class="layer" id="layer-dusk"></div>
+      <div class="layer" id="layer-night"></div>
+      <div class="layer" id="layer-stars-far"></div>
+      <div class="layer" id="layer-snow-near"></div>
+      <div class="layer" id="layer-aurora-a"></div>
+      <div class="layer" id="layer-aurora-b"></div>
+      <div class="layer" id="layer-mountains"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

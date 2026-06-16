@@ -1,0 +1,208 @@
+/* ============================================================
+   SKY DESCENT — stylesheet
+
+   CONTEXT
+   This piece simulates descending through a night sky, from dusk
+   into deep night with aurora and snow. Every CSS decision serves
+   that one atmospheric goal: dark palette throughout, a single
+   accent colour (mint green for the aurora), and typography that
+   reads as a gallery caption rather than a UI label.
+
+   I kept CSS responsible only for static appearance and layout.
+   All motion (parallax, opacity transitions, aurora drift) is
+   handled in script.js, because scroll-driven animation requires
+   values that CSS alone cannot compute.
+   ============================================================ */
+
+/* CSS custom properties (variables) let me define the colour
+   palette once and reuse it consistently. If the palette changes,
+   I only update it here, not scattered across dozens of rules. */
+:root {
+  --ink: #05070f; /* deepest sky / page background */
+  --mint: #c9f5dd; /* aurora highlight colour */
+  --haze: rgba(201, 245, 221, 0.55); /* semi-transparent mint for overlays */
+}
+
+/* Box-sizing: border-box means padding and border are included in
+   an element's declared width/height. This prevents unexpected
+   overflow and is considered modern best practice. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* smooth scroll-behavior makes any programmatic scroll jump feel
+     gradual rather than instant. JS scroll events still fire normally. */
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--ink);
+  color: var(--mint);
+  /* min-height: 600vh creates the scroll distance the JS engine reads.
+     Without tall content there is nothing to scroll through, so the
+     parallax system has no input to work with. */
+  min-height: 600vh;
+  /* flexbox centres the .intro title on the initial viewport */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Overlay ── */
+/* position: fixed + inset: 0 stretches the overlay to fill the entire
+   viewport regardless of scroll position, acting as a full-screen modal */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* backdrop-filter: blur blurs everything behind the overlay.
+     I chose this over a solid background so the artwork is still
+     partially visible, hinting at what is to come. */
+  backdrop-filter: blur(12px);
+  background: rgba(5, 7, 15, 0.5);
+  color: rgba(255, 255, 255, 0.85);
+  font-family: "Merriweather", Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  line-height: 1.8;
+  /* transition on opacity lets JS add .hidden class and the fade
+     happens smoothly over 1.5s without JS needing to animate it */
+  transition: opacity 1.5s ease;
+}
+
+/* JS adds this class after 3s. pointer-events: none prevents the
+   invisible overlay from blocking clicks/scrolls underneath it. */
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Title typography ── */
+/* Stalemate is a hand-lettered cursive chosen to feel expressive
+   and artistic, consistent with the "art piece" context.
+   clamp() sets a fluid font size: minimum 8rem, ideal 20vw,
+   maximum 11rem, so the title scales with the viewport without
+   media queries. */
+h1 {
+  font-family: "Stalemate", cursive;
+  font-weight: 400;
+  font-size: clamp(8rem, 20vw, 11rem);
+  line-height: 0.92;
+  margin-top: 100px;
+  text-transform: none;
+  /* text-shadow creates a faint green glow around the letters,
+     connecting the title visually to the aurora colour palette */
+  text-shadow: 0 0 50px rgba(120, 220, 170, 0.35);
+}
+
+/* ── Intro container ── */
+/* position: fixed keeps the title centred in the viewport while
+   the page scrolls beneath it. JS fades it out on scroll. */
+.intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 10;
+}
+
+/* ── Scene and layers ── */
+/* .scene is the fixed "window" the viewer looks through.
+   All PNG layers are children of this container so they share
+   the same fixed coordinate space. */
+.scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+}
+
+/* Every layer fills the scene completely. opacity: 0 hides all
+   layers initially, JS reveals them progressively as scroll advances.
+   will-change: opacity, transform tells the browser to promote these
+   elements to their own GPU compositing layer in advance, preventing
+   jank when the properties animate. (MDN, 2024) */
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+/* ── Individual layer images ── */
+/* Each layer uses a separate PNG asset. Keeping them as separate files
+   (rather than one sprite) means the browser can decode and cache them
+   independently, and JS can control each layer's opacity individually. */
+#layer-dusk {
+  background-image: url("sky-dusk.png");
+}
+
+#layer-night {
+  background-image: url("sky-night.png");
+}
+
+/* mountains: background-position center bottom anchors the mountain
+   silhouette to the bottom edge of the layer, so it always sits on
+   the horizon line regardless of viewport height */
+#layer-mountains {
+  background-image: url("mountains.png");
+  background-position: center bottom;
+  background-size: cover;
+  transform-origin: bottom center;
+}
+
+#layer-stars-far {
+  background-image: url("stars-far.png");
+}
+
+#layer-snow-near {
+  background-image: url("snow-near.png");
+}
+
+/* mix-blend-mode: screen means the aurora layers add their light to
+   whatever is beneath them and never darken it. This mimics how real
+   aurora light behaves, it illuminates the sky rather than covering it.
+   Without screen blend, the aurora PNG edges would show as hard rectangles
+   against the night sky. */
+#layer-aurora-a {
+  background-image: url("aurora-a.png");
+  mix-blend-mode: screen;
+}
+
+#layer-aurora-b {
+  background-image: url("aurora-b.png");
+  mix-blend-mode: screen;
+}
+
+/* bob keyframe is defined here for potential future use on a scroll
+   hint chevron. Currently unused but kept for extension */
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
